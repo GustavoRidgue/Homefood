@@ -2,6 +2,7 @@ package com.ridgue.homefood.http.domain.builder;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.domain.ClientTO;
+import com.ridgue.homefood.exceptions.InvalidClientFieldException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import org.springframework.stereotype.Component;
 
@@ -24,13 +25,16 @@ public class ClientBuilder {
     public ClientEntity build(ClientRequest clientRequest) {
         if (clientRequest == null) return null;
 
-        ClientEntity client = new ClientEntity();
-        client.setId(null);
-        client.setName(clientRequest.getName());
-        client.setEmail(clientRequest.getEmail());
-        client.setPhoneNumber(clientRequest.getPhoneNumber());
-        client.setAge(clientRequest.getAge());
+        try {
+            ClientEntity client = new ClientEntity();
+            client.setName(clientRequest.getName());
+            client.setEmail(clientRequest.getEmail());
+            client.setPhoneNumber(clientRequest.getPhoneNumber());
+            client.setAge(clientRequest.getAge());
 
-        return client;
+            return client;
+        } catch (Exception e) {
+            throw new InvalidClientFieldException();
+        }
     }
 }

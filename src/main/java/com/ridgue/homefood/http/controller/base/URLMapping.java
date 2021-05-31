@@ -12,5 +12,5 @@ public class URLMapping {
 
     public static final String ROOT_API_WS_CLIENT_UPDATE = ROOT_API_WS_CLIENTS + "/update/{id}";
 
-    public static final String ROOT_API_WS_CLIENT_DELETE = ROOT_API_WS_CLIENTS + "/delete";
+    public static final String ROOT_API_WS_CLIENT_DELETE = ROOT_API_WS_CLIENTS + "/delete/{id}";
 }

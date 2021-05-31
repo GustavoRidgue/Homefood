@@ -1,7 +1,7 @@
 package com.ridgue.homefood.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+//import lombok.NoArgsConstructor;
 
 @Data
 //@NoArgsConstructor

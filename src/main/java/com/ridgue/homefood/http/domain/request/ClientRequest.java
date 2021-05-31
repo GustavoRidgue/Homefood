@@ -1,7 +1,7 @@
 package com.ridgue.homefood.http.domain.request;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+//import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 //@EqualsAndHashCode(callSuper = true)

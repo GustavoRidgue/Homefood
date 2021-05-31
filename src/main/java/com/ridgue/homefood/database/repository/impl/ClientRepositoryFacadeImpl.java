@@ -3,6 +3,8 @@ package com.ridgue.homefood.database.repository.impl;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.ClientRepository;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
+import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,11 +27,24 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
         return clientRepository.findById(id).orElse(null);
     }
 
-    public void create(ClientEntity clientEntity) {
-        clientRepository.save(clientEntity);
+    public long create(ClientEntity clientEntity) {
+        return clientRepository.save(clientEntity).getId();
     }
 
-    public void delete(Long id) {
+    public ClientEntity updateById(Long id, ClientRequest clientRequest) {
+        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+
+        ClientEntity clientEntity = clientRepository.findById(id).get();
+        clientEntity.setName(clientRequest.getName());
+        clientEntity.setPhoneNumber(clientRequest.getPhoneNumber());
+        clientEntity.setEmail(clientRequest.getEmail());
+        clientEntity.setAge(clientRequest.getAge());
+        clientEntity.setActive(true);
+
+        return clientEntity;
+    }
+
+    public void deleteById(Long id) {
         clientRepository.deleteById(id);
     }
 }
