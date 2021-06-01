@@ -1,15 +1,15 @@
-package com.ridgue.homefood.http.controller;
+package com.ridgue.homefood.http.ws;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientFieldException;
-import com.ridgue.homefood.http.controller.base.URLMapping;
+import com.ridgue.homefood.http.ws.base.URLMapping;
 import com.ridgue.homefood.http.domain.factory.ClientBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.ClientUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
-import com.ridgue.homefood.http.domain.response.ClientResponse;
+import com.ridgue.homefood.http.domain.response.client.ClientResponse;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
-import com.ridgue.homefood.http.domain.response.ListClientResponse;
+import com.ridgue.homefood.http.domain.response.client.ListClientResponse;
 import com.ridgue.homefood.usecase.client.ListClientUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,8 @@ import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import static com.ridgue.homefood.http.ws.base.URLMapping.ROOT_API_WS_CLIENT_BY_ID;
 
 @RestController
 @AllArgsConstructor
@@ -40,7 +42,7 @@ public class ClientWS {
         return ResponseEntity.ok(new ListClientResponse(listClientUseCase.execute().stream().map(clientBuilderFactory.getClientBuilder()::build).collect(Collectors.toList())));
     }
 
-    @GetMapping(path = URLMapping.ROOT_API_WS_CLIENT_BY_ID)
+    @GetMapping(path = ROOT_API_WS_CLIENT_BY_ID)
     public ResponseEntity<ClientResponse> listById(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(new ClientResponse(clientBuilderFactory.getClientBuilder().build(clientUseCaseFactory.getFindClientByIdUseCase().execute(id))));
@@ -59,7 +61,7 @@ public class ClientWS {
     public ResponseEntity<?> create(@RequestBody ClientRequest clientRequest, UriComponentsBuilder uriComponentsBuilder) {
         try {
             long id = clientUseCaseFactory.getCreateClientUseCase().execute(clientBuilderFactory.getClientBuilder().build(clientRequest));
-            URI uri = uriComponentsBuilder.path("/{id}").buildAndExpand(id).toUri();
+            URI uri = uriComponentsBuilder.path(URLMapping.ROOT_API_WS_CLIENT_BY_ID).buildAndExpand(id).toUri();
 
             return ResponseEntity.created(uri).body(clientUseCaseFactory.getFindClientByIdUseCase().execute(id));
         } catch (InvalidClientFieldException e) {

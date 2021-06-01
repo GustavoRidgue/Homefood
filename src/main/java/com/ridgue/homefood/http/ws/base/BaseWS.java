@@ -1,4 +1,4 @@
-package com.ridgue.homefood.http.controller.base;
+package com.ridgue.homefood.http.ws.base;
 
 import lombok.extern.slf4j.Slf4j;
 
