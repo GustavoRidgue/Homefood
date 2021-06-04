@@ -24,6 +24,7 @@ public class StateBuilder {
         try {
             StateEntity state = new StateEntity();
             state.setName(stateRequest.getName());
+            state.setCountry(stateRequest.getCountryEntity());
 
             return state;
         } catch (Exception e) {

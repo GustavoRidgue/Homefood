@@ -13,5 +13,6 @@ public class ClientUseCaseFactory {
     private final FindClientByIdUseCase findClientByIdUseCase;
     private final CreateClientUseCase createClientUseCase;
     private final UpdateClientUseCase updateClientUseCase;
+    private final PatchClientUseCase patchClientUseCase;
     private final DeleteClientUseCase deleteClientUseCase;
 }
