@@ -15,4 +15,5 @@ public class ClientUseCaseFactory {
     private final UpdateClientUseCase updateClientUseCase;
     private final PatchClientUseCase patchClientUseCase;
     private final DeleteClientUseCase deleteClientUseCase;
+    private final ActivateClientUseCase activateClientUseCase;
 }

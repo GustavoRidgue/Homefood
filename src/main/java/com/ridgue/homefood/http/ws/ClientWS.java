@@ -1,35 +1,29 @@
 package com.ridgue.homefood.http.ws;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.ridgue.homefood.database.entity.ClientEntity;
+import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientFieldException;
-import com.ridgue.homefood.http.ws.base.URLMapping;
 import com.ridgue.homefood.http.domain.factory.ClientBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.ClientUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
-import com.ridgue.homefood.http.domain.response.client.ClientResponse;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
+import com.ridgue.homefood.http.domain.response.client.ClientResponse;
 import com.ridgue.homefood.http.domain.response.client.ListClientResponse;
+import com.ridgue.homefood.http.ws.base.URLMapping;
 import com.ridgue.homefood.http.ws.util.ClientFields;
 import com.ridgue.homefood.usecase.client.ListClientUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.ridgue.homefood.http.ws.base.URLMapping.ROOT_API_WS_CLIENT_BY_ID;
@@ -75,7 +69,7 @@ public class ClientWS {
 
             return ResponseEntity.created(uri).body(clientUseCaseFactory.getFindClientByIdUseCase().execute(id));
         } catch (InvalidClientFieldException e) {
-            return new  ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -131,4 +125,40 @@ public class ClientWS {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * -----------------------------
+     * ------- SERVICE
+     * -----------------------------
+     */
+
+    @GetMapping(path = URLMapping.ROOT_API_WS_CLIENT_GET_REGISTRATION_CODE)
+    public ResponseEntity<?> receiveRegistrationCode(@PathVariable(name = "id") Long id) {
+        try {
+            ClientEntity entity = clientUseCaseFactory.getFindClientByIdUseCase().execute(id);
+            clientUseCaseFactory.getActivateClientUseCase().execute(entity,"http://localhost:8053/ridgue/homefood" + URLMapping.ROOT_API_WS_CLIENT_ACTIVATE + id);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (ClientAlreadyActivatedException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        }
+
+        //Client received email if code
+        //Add redirection header
+
+        //Client register himself with the code in another endpoint
+        //Endpoint to client put his registration code to activate account
+    }
+
+//    @PostMapping(path = URLMapping.ROOT_API_WS_CLIENT_ACTIVATE)
+//    public ResponseEntity<?> activate(@PathVariable(name = "id") Long id) {
+//        try {
+//            ClientEntity entity = clientUseCaseFactory.getFindClientByIdUseCase().execute(id);
+//            clientUseCaseFactory.getActivateClientUseCase().execute(entity);
+//
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } catch (ClientAlreadyActivatedException e) {
+//            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 }
