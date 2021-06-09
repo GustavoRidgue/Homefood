@@ -3,7 +3,9 @@ package com.ridgue.homefood.database.repository.impl;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.ClientRepository;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
+import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.InvalidClientTokenException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,31 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
         clientEntity.setActive(true);
 
         return clientEntity;
+    }
+
+    public ClientEntity updateTokenById(Long id, String token) {
+        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+
+        ClientEntity clientEntity = clientRepository.findById(id).get();
+
+        if (clientEntity.isActive()) throw new ClientAlreadyActivatedException();
+
+        clientEntity.setToken(token);
+
+        return clientEntity;
+    }
+
+    public ClientEntity activate(Long id, String token) {
+        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+        
+        ClientEntity clientById = clientRepository.findById(id).get();
+
+        if (clientById.isActive()) throw new ClientAlreadyActivatedException();
+        if (!token.equals(clientById.getToken())) throw new InvalidClientTokenException();
+
+        clientById.setActive(true);
+
+        return clientById;
     }
 
     public void deleteById(Long id) {

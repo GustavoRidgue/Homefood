@@ -22,8 +22,7 @@ public class ClientEntity {
     private int age;
     @Column(nullable = false)
     private boolean active = false;
-    @Column(nullable = false)
-    private String registration;
+    private String token;
 }
 
 

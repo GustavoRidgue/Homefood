@@ -1,9 +1,11 @@
 package com.ridgue.homefood.http.ws;
 
+import ch.qos.logback.core.net.server.Client;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientFieldException;
+import com.ridgue.homefood.exceptions.InvalidClientTokenException;
 import com.ridgue.homefood.http.domain.factory.ClientBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.ClientUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
@@ -24,8 +26,10 @@ import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.ridgue.homefood.http.ws.base.URLMapping.ROOT_API_WS_CLIENT_ACTIVATE;
 import static com.ridgue.homefood.http.ws.base.URLMapping.ROOT_API_WS_CLIENT_BY_ID;
 
 @RestController
@@ -132,33 +136,37 @@ public class ClientWS {
      * -----------------------------
      */
 
-    @GetMapping(path = URLMapping.ROOT_API_WS_CLIENT_GET_REGISTRATION_CODE)
+    @PatchMapping(path = URLMapping.ROOT_API_WS_CLIENT_GET_REGISTRATION_CODE)
+    @Transactional
     public ResponseEntity<?> receiveRegistrationCode(@PathVariable(name = "id") Long id) {
         try {
-            ClientEntity entity = clientUseCaseFactory.getFindClientByIdUseCase().execute(id);
-            clientUseCaseFactory.getActivateClientUseCase().execute(entity,"http://localhost:8053/ridgue/homefood" + URLMapping.ROOT_API_WS_CLIENT_ACTIVATE + id);
-
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            ClientEntity execute = clientUseCaseFactory.getGetRegistrationCodeUseCase().execute(id, ROOT_API_WS_CLIENT_ACTIVATE + id);
+            return new ResponseEntity<>(execute, HttpStatus.OK);
         } catch (ClientAlreadyActivatedException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        } catch (ClientNotFoundException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
-
-        //Client received email if code
-        //Add redirection header
-
-        //Client register himself with the code in another endpoint
-        //Endpoint to client put his registration code to activate account
     }
 
-//    @PostMapping(path = URLMapping.ROOT_API_WS_CLIENT_ACTIVATE)
-//    public ResponseEntity<?> activate(@PathVariable(name = "id") Long id) {
-//        try {
-//            ClientEntity entity = clientUseCaseFactory.getFindClientByIdUseCase().execute(id);
-//            clientUseCaseFactory.getActivateClientUseCase().execute(entity);
-//
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (ClientAlreadyActivatedException e) {
-//            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @PatchMapping(path = ROOT_API_WS_CLIENT_ACTIVATE)
+    @Transactional
+    public ResponseEntity<?> activate(@PathVariable(name = "id") Long id, @RequestParam String token) {
+        try {
+            ClientEntity execute = clientUseCaseFactory.getActivateClientCodeUseCase().execute(id, token);
+            return new ResponseEntity<>(execute, HttpStatus.OK);
+        } catch (ClientAlreadyActivatedException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        } catch (InvalidClientTokenException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        } catch (ClientNotFoundException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //Client received email if code
+    //Add redirection header
+
+    //Client register himself with the code in another endpoint
+    //Endpoint to client put his registration code to activate account
 }

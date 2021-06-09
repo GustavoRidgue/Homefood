@@ -18,6 +18,7 @@ public class ClientBuilder {
         to.setPhoneNumber(clientEntity.getPhoneNumber());
         to.setAge(clientEntity.getAge());
         to.setActive(clientEntity.isActive());
+        to.setToken(clientEntity.getToken());
 
         return to;
     }
@@ -31,6 +32,7 @@ public class ClientBuilder {
             client.setEmail(clientRequest.getEmail());
             client.setPhoneNumber(clientRequest.getPhoneNumber());
             client.setAge(clientRequest.getAge());
+            client.setToken(clientRequest.getToken());
 
             return client;
         } catch (Exception e) {

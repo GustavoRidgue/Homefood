@@ -12,4 +12,5 @@ public class ClientTO {
     private String phoneNumber;
     private int age;
     private boolean active;
+    private String token;
 }

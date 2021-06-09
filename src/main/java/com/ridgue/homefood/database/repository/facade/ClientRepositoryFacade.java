@@ -10,5 +10,7 @@ public interface ClientRepositoryFacade {
     ClientEntity findById(Long id);
     long create(ClientEntity clientEntity);
     ClientEntity updateById(Long id, ClientRequest clientRequest);
+    ClientEntity updateTokenById(Long id, String token);
+    ClientEntity activate(Long id, String token);
     void deleteById(Long id);
 }
