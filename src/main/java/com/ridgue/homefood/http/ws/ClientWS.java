@@ -140,8 +140,8 @@ public class ClientWS {
     @Transactional
     public ResponseEntity<?> receiveRegistrationCode(@PathVariable(name = "id") Long id) {
         try {
-            ClientEntity execute = clientUseCaseFactory.getGetRegistrationCodeUseCase().execute(id, ROOT_API_WS_CLIENT_ACTIVATE + id);
-            return new ResponseEntity<>(execute, HttpStatus.OK);
+            String token = clientUseCaseFactory.getGetRegistrationCodeUseCase().execute(id, ROOT_API_WS_CLIENT_ACTIVATE + id);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (ClientAlreadyActivatedException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         } catch (ClientNotFoundException e) {

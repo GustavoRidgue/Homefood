@@ -16,7 +16,7 @@ public class CreateClientUseCase {
     public long execute(ClientEntity clientEntity) {
         try {
             return clientRepositoryFacade.create(clientEntity);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             throw new InvalidClientFieldException();
         }
     }

@@ -11,6 +11,6 @@ public class ClientTO {
     private String email;
     private String phoneNumber;
     private int age;
+    private String password;
     private boolean active;
-    private String token;
 }

@@ -16,7 +16,7 @@ public class GetRegistrationCodeUseCase {
     private final ClientRepositoryFacade clientRepositoryFacade;
     private final SendEmail email;
 
-    public ClientEntity execute(Long id, String redirection) {
+    public String execute(Long id, String redirection) {
         String token = (UUID.randomUUID() + String.valueOf(id)).substring(0,10);
         ClientEntity clientEntity = clientRepositoryFacade.updateTokenById(id, token);
 
@@ -27,7 +27,7 @@ public class GetRegistrationCodeUseCase {
                 "This is your token code: " + token + "\n" +
                 "To activate your account, go to: " + redirection + " and insert your token code");
 
-        return clientEntity;
+        return token;
     }
 
 //    public String execute(Long id, String redirection) {

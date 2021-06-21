@@ -12,5 +12,7 @@ public class ClientRequest {
     private String email;
     private String phoneNumber;
     private int age;
-    private String token;
+    private String password;
+//    private boolean active;
+//    private String token;
 }

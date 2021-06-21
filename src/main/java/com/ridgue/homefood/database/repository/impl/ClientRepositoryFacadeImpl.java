@@ -60,7 +60,7 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
 
     public ClientEntity activate(Long id, String token) {
         if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
-        
+
         ClientEntity clientById = clientRepository.findById(id).get();
 
         if (clientById.isActive()) throw new ClientAlreadyActivatedException();
