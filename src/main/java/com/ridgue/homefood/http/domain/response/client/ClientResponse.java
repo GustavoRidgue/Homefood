@@ -1,5 +1,6 @@
-package com.ridgue.homefood.http.domain.response.client;
+package com.ridgue.homefood.http.domain.response.city;
 
+import com.ridgue.homefood.domain.CityTO;
 import com.ridgue.homefood.domain.ClientTO;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class ClientResponse extends DefaultResponse {
-    private ClientTO clientTO;
+public class CityResponse extends DefaultResponse {
+    private CityTO cityTO;
 }
