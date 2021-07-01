@@ -17,8 +17,9 @@ public class ClientBuilder {
         to.setEmail(clientEntity.getEmail());
         to.setPhoneNumber(clientEntity.getPhoneNumber());
         to.setAge(clientEntity.getAge());
-        to.setActive(clientEntity.isActive());
-        to.setPassword(clientEntity.getPassword());
+//        to.setActive(clientEntity.isActive());
+//        to.setPassword(clientEntity.getPassword());
+//        to.setAddress(clientEntity.getAddress());
 //        to.setToken(clientEntity.getToken());
 
         return to;
@@ -34,6 +35,7 @@ public class ClientBuilder {
             client.setPhoneNumber(clientRequest.getPhoneNumber());
             client.setAge(clientRequest.getAge());
             client.setPassword(clientRequest.getPassword());
+            client.setAddress(clientRequest.getAddress());
 //            client.setActive(false);
 //            client.setToken("");
 

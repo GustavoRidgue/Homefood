@@ -41,6 +41,7 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
         clientEntity.setPhoneNumber(clientRequest.getPhoneNumber());
         clientEntity.setEmail(clientRequest.getEmail());
         clientEntity.setAge(clientRequest.getAge());
+        clientEntity.setAddress(clientRequest.getAddress());
         clientEntity.setActive(true);
 
         return clientEntity;

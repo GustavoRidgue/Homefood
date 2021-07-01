@@ -14,6 +14,4 @@ public class StateEntity {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne
-    private CountryEntity country;
 }

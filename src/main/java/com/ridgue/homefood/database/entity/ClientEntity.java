@@ -1,6 +1,7 @@
 package com.ridgue.homefood.database.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ridgue.homefood.database.entity.embeeded.Address;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,23 +15,37 @@ import java.time.LocalDate;
 public class ClientEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String email;
+
     @Column(nullable = false)
     private String phoneNumber;
+
     @Column(nullable = false)
     private int age;
-    @CreationTimestamp
-    private LocalDate enterDate;
+
+    @JsonIgnoreProperties
+    @Embedded
+    private Address address;
+
     @Column(nullable = false)
-    private boolean active = false;
+    private String email;
+
     @JsonIgnoreProperties
     @Column(nullable = false)
     private String password;
+
     @JsonIgnoreProperties
-    private String token = "";
+    @CreationTimestamp
+    private LocalDate enterDate;
+
+    @JsonIgnoreProperties
+    @Column(nullable = false)
+    private boolean active = false;
+
+    @JsonIgnoreProperties
+    private String token;
 }
 
 
