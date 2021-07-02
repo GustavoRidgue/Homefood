@@ -1,0 +1,15 @@
+X ClassEntity            (com.ridgue.homefood.database.entity)
+X ClassFacade            (com.ridgue.homefood.database.repository.facade)
+X ClassFacadeImpl        (com.ridgue.homefood.database.repository.impl)
+X ClassRepository        (com.ridgue.homefood.database.repository)
+ ClassTO                (com.ridgue.homefood.domain)
+ ClassBuilder           (com.ridgue.homefood.http.domain.builder)
+ ClassRequest           (com.ridgue.homefood.http.domain.request)
+ ClassResponse          (com.ridgue.homefood.http.domain.responde)
+ ClassWS                (com.ridgue.homefood.http.ws)
+ ClassUseCase           (com.ridgue.homefood.usecase)
+
+// ======== Optional ======== //
+
+ ClassBuilderFactory    (com.ridgue.homefood.http.domain.factory)
+ ClassUseCaseFactory    (com.ridgue.homefood.http.domain.factory)
