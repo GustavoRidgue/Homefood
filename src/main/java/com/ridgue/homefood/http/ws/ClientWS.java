@@ -1,13 +1,12 @@
 package com.ridgue.homefood.http.ws;
 
-import ch.qos.logback.core.net.server.Client;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientFieldException;
 import com.ridgue.homefood.exceptions.InvalidClientTokenException;
-import com.ridgue.homefood.http.domain.factory.ClientBuilderFactory;
-import com.ridgue.homefood.http.domain.factory.ClientUseCaseFactory;
+import com.ridgue.homefood.http.domain.factory.client.ClientBuilderFactory;
+import com.ridgue.homefood.http.domain.factory.client.ClientUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import com.ridgue.homefood.http.domain.response.client.ClientResponse;
@@ -26,7 +25,6 @@ import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.ridgue.homefood.http.ws.base.URLMapping.ROOT_API_WS_CLIENT_ACTIVATE;

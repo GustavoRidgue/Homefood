@@ -1,4 +1,4 @@
-package com.ridgue.homefood.http.domain.factory;
+package com.ridgue.homefood.http.domain.factory.client;
 
 import com.ridgue.homefood.http.domain.builder.ClientBuilder;
 import lombok.AllArgsConstructor;
