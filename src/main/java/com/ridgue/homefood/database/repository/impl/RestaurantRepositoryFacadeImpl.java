@@ -1,5 +1,6 @@
 package com.ridgue.homefood.database.repository.impl;
 
+import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.database.repository.RestaurantRepository;
 import com.ridgue.homefood.database.repository.facade.RestaurantRepositoryFacade;
@@ -23,5 +24,9 @@ public class RestaurantRepositoryFacadeImpl implements RestaurantRepositoryFacad
 
     public RestaurantEntity findById(Long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public long create(RestaurantEntity restaurantEntity) {
+        return repository.save(restaurantEntity).getId();
     }
 }

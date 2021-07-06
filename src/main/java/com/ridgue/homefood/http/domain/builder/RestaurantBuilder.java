@@ -1,10 +1,7 @@
 package com.ridgue.homefood.http.domain.builder;
 
-import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.domain.RestaurantTO;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
-import com.ridgue.homefood.http.domain.request.ClientRequest;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +28,10 @@ public class RestaurantBuilder {
 
         RestaurantEntity restaurant = new RestaurantEntity();
         restaurant.setName(restaurantRequest.getName());
+        restaurant.setKitchen(restaurantRequest.getKitchen());
+        restaurant.setShipping(restaurantRequest.getShipping());
+        restaurant.setPaymentMethods(restaurantRequest.getPaymentMethods());
+        restaurant.setAddress(restaurantRequest.getAddress());
 
         return restaurant;
     }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface RestaurantRepositoryFacade {
     List<RestaurantEntity> findAll();
-
     RestaurantEntity findById(Long id);
+    long create(RestaurantEntity restaurantEntity);
 }

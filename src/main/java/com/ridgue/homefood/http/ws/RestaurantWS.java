@@ -1,15 +1,21 @@
 package com.ridgue.homefood.http.ws;
 
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.InvalidClientFieldException;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
+import com.ridgue.homefood.http.domain.request.RestaurantRequest;
+import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.ListRestaurantResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.RestaurantResponse;
 import com.ridgue.homefood.http.ws.base.URLMapping;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static com.ridgue.homefood.http.ws.base.URLMapping.*;
@@ -47,6 +53,18 @@ public class RestaurantWS {
      * ------- POST METHODS
      * -----------------------------
      */
+    @PostMapping(path = ROOT_API_WS_SAVE_RESTAURANT)
+//    @Transactional
+    public ResponseEntity<?> create(@RequestBody RestaurantRequest restaurantRequest, UriComponentsBuilder uriComponentsBuilder) {
+        try {
+            long id = restaurantUseCaseFactory.getCreateRestaurantUseCase().execute(restaurantBuilderFactory.getRestaurantBuilder().build(restaurantRequest));
+            URI uri = uriComponentsBuilder.path(URLMapping.ROOT_API_WS_RESTAURANT_BY_ID + id).buildAndExpand(id).toUri();
+
+            return ResponseEntity.created(uri).body(restaurantUseCaseFactory.getFindRestaurantByIdUseCase().execute(id));
+        } catch (InvalidClientFieldException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     /**
      * -----------------------------
