@@ -1,5 +1,6 @@
 package com.ridgue.homefood.domain;
 
+import com.ridgue.homefood.database.entity.KitchenEntity;
 import com.ridgue.homefood.database.entity.PaymentMethod;
 import com.ridgue.homefood.database.entity.embeeded.Address;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 public class RestaurantTO {
     private Long id;
     private String name;
-    private String description;
+    private KitchenEntity kitchen;
     private BigDecimal shipping;
 //    private Address address;
 //    private LocalDate created;

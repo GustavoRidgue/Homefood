@@ -24,13 +24,14 @@ public class RestaurantEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String description;
+    @JsonIgnore
+    @ManyToOne // (fetch = FetchType.LAZY)
+    @JoinColumn(name = "kitchen_id", nullable = false)
+    private KitchenEntity kitchen;
 
     @Column(name = "shipping", nullable = false)
     private BigDecimal shipping;
 
-    @JsonIgnore
     @Embedded
     private Address address;
 
