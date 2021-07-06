@@ -3,8 +3,8 @@ package com.ridgue.homefood.http.ws;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
 import com.ridgue.homefood.exceptions.InvalidClientTokenException;
+import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.factory.client.ClientBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.client.ClientUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
@@ -70,7 +70,7 @@ public class ClientWS {
             URI uri = uriComponentsBuilder.path(URLMapping.ROOT_API_WS_CLIENT_BY_ID).buildAndExpand(id).toUri();
 
             return ResponseEntity.created(uri).body(clientUseCaseFactory.getFindClientByIdUseCase().execute(id));
-        } catch (InvalidClientFieldException e) {
+        } catch (InvalidFieldException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
@@ -88,7 +88,7 @@ public class ClientWS {
             return ResponseEntity.ok(updatedClient);
         } catch (ClientNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
-        } catch (InvalidClientFieldException e) {
+        } catch (InvalidFieldException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
@@ -161,10 +161,4 @@ public class ClientWS {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
-
-    //Client received email if code
-    //Add redirection header
-
-    //Client register himself with the code in another endpoint
-    //Endpoint to client put his registration code to activate account
 }

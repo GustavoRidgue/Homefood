@@ -2,7 +2,7 @@ package com.ridgue.homefood.http.domain.builder;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.domain.ClientTO;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
+import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ public class ClientBuilder {
 
             return client;
         } catch (Exception e) {
-            throw new InvalidClientFieldException();
+            throw new InvalidFieldException();
         }
     }
 }

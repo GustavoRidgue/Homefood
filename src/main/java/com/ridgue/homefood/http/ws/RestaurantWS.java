@@ -1,6 +1,6 @@
 package com.ridgue.homefood.http.ws;
 
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
+import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
@@ -61,7 +61,7 @@ public class RestaurantWS {
             URI uri = uriComponentsBuilder.path(URLMapping.ROOT_API_WS_RESTAURANT_BY_ID + id).buildAndExpand(id).toUri();
 
             return ResponseEntity.created(uri).body(restaurantUseCaseFactory.getFindRestaurantByIdUseCase().execute(id));
-        } catch (InvalidClientFieldException e) {
+        } catch (InvalidFieldException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }

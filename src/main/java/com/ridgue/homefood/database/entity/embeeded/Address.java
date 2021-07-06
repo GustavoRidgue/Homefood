@@ -1,17 +1,16 @@
 package com.ridgue.homefood.database.entity.embeeded;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.ridgue.homefood.database.entity.CityEntity;
-import com.ridgue.homefood.database.entity.StateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Data
-//@JsonIgnoreType
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
@@ -31,7 +30,6 @@ public class Address {
     @Column(name = "district", nullable = false)
     private String district;
 
-//    @Column(nullable = false)
     @ManyToOne
     @JoinColumn(name = "address_city_id")
     private CityEntity city;

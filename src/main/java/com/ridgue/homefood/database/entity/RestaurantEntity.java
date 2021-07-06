@@ -1,7 +1,6 @@
 package com.ridgue.homefood.database.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ridgue.homefood.database.entity.embeeded.Address;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,13 +47,4 @@ public class RestaurantEntity {
             joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "payment_method_id"))
     private List<PaymentMethod> paymentMethods = new ArrayList<>();
-
-    /*@JsonIgnore
-    @OneToMany(mappedBy = "restaurante")
-    private List<Produto> produtos = new ArrayList<>();*/
-
-    /*//	@JsonIgnore
-    @ManyToOne //(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cozinha_id", nullable = false)
-    private Cozinha cozinha;*/
 }

@@ -3,16 +3,11 @@ package com.ridgue.homefood.usecase.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
-import com.ridgue.homefood.http.domain.request.ClientRequest;
 import com.ridgue.homefood.http.ws.util.ClientFields;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.PropertyValueException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import javax.persistence.EntityNotFoundException;
 import java.lang.reflect.Field;
 import java.util.Map;
 

@@ -3,11 +3,10 @@ package com.ridgue.homefood.usecase.client;
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
 import com.ridgue.homefood.exceptions.ClientNotFoundException;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
+import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.PropertyValueException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,13 +18,13 @@ public class UpdateClientUseCase {
 
     public ClientEntity execute(Long id, ClientRequest clientRequest) {
         if (clientRequest.getName() == null || clientRequest.getAge() == 0 ||
-                clientRequest.getEmail() == null || clientRequest.getPhoneNumber() == null) throw new InvalidClientFieldException();
+                clientRequest.getEmail() == null || clientRequest.getPhoneNumber() == null) throw new InvalidFieldException();
         try {
             return clientRepositoryFacade.updateById(id, clientRequest);
         } catch (NullPointerException | EntityNotFoundException e) {
             throw new ClientNotFoundException();
         } catch (PropertyValueException e) {
-            throw new InvalidClientFieldException();
+            throw new InvalidFieldException();
         }
     }
 

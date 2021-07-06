@@ -1,13 +1,8 @@
 package com.ridgue.homefood.database.repository.impl;
 
-import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.StateEntity;
-import com.ridgue.homefood.database.repository.ClientRepository;
 import com.ridgue.homefood.database.repository.StateRepository;
-import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
 import com.ridgue.homefood.database.repository.facade.StateRepositoryFacade;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
-import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

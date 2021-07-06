@@ -1,7 +1,6 @@
 package com.ridgue.homefood.http.domain.response.client;
 
 import com.ridgue.homefood.domain.ClientTO;
-import com.ridgue.homefood.domain.ListClientTO;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;

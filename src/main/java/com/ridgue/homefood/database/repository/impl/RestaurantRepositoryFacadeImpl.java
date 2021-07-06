@@ -1,6 +1,5 @@
 package com.ridgue.homefood.database.repository.impl;
 
-import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.database.repository.RestaurantRepository;
 import com.ridgue.homefood.database.repository.facade.RestaurantRepositoryFacade;

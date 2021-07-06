@@ -2,9 +2,8 @@ package com.ridgue.homefood.usecase.client;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
-import com.ridgue.homefood.exceptions.InvalidClientFieldException;
+import com.ridgue.homefood.exceptions.InvalidFieldException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.PropertyValueException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +15,7 @@ public class CreateClientUseCase {
         try {
             return clientRepositoryFacade.create(clientEntity);
         } catch (Exception e) {
-            throw new InvalidClientFieldException();
+            throw new InvalidFieldException();
         }
     }
 }

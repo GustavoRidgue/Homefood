@@ -1,12 +1,8 @@
 package com.ridgue.homefood.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ridgue.homefood.database.entity.embeeded.Address;
 import lombok.Data;
-//import lombok.NoArgsConstructor;
 
 @Data
-//@NoArgsConstructor
 public class ClientTO {
     private Long id;
     private String name;

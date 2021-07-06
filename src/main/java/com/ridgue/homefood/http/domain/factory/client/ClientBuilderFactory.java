@@ -10,5 +10,4 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ClientBuilderFactory {
     private final ClientBuilder clientBuilder;
-//    private final ClientUseCaseFactory clientUseCaseFactory;
 }
