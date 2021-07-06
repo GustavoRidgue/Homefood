@@ -16,6 +16,12 @@ public class RestaurantBuilder {
         RestaurantTO to = new RestaurantTO();
         to.setId(restaurantEntity.getId());
         to.setName(restaurantEntity.getName());
+        to.setDescription(restaurantEntity.getDescription());
+        to.setShipping(restaurantEntity.getShipping());
+//        to.setPaymentMethods(restaurantEntity.getPaymentMethods());
+//        to.setAddress(restaurantEntity.getAddress());
+//        to.setCreated(restaurantEntity.getCreated());
+//        to.setLastUpdate(restaurantEntity.getLastUpdate());
 
         return to;
     }

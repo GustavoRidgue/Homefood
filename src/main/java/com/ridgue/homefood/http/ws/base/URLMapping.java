@@ -14,7 +14,7 @@ public class URLMapping {
     public static final String ROOT_API_WS_CLIENT_GET_REGISTRATION_CODE = ROOT_API_WS_CLIENTS + "/registration-code/{id}";
     public static final String ROOT_API_WS_CLIENT_ACTIVATE = ROOT_API_WS_CLIENTS + "/activate/{id}";
 
-    public static final String ROOT_API_WS_RESTAURANTS = "/restaurant";
-    public static final String ROOT_API_WS_RESTAURANT_BY_ID = ROOT_API_WS_RESTAURANTS + "/{id}";
-    public static final String ROOT_API_WS_SAVE_RESTAURANT = ROOT_API_WS_RESTAURANTS + "/save";
+    public static final String ROOT_API_WS_RESTAURANT = "/restaurant";
+    public static final String ROOT_API_WS_RESTAURANT_BY_ID = ROOT_API_WS_RESTAURANT + "/{id}";
+    public static final String ROOT_API_WS_SAVE_RESTAURANT = ROOT_API_WS_RESTAURANT + "/save";
 }

@@ -24,7 +24,7 @@ public class RestaurantWS {
      * ------- GET METHODS
      * -----------------------------
      */
-    @GetMapping(path = URLMapping.ROOT_API_WS_RESTAURANTS)
+    @GetMapping(path = URLMapping.ROOT_API_WS_RESTAURANT)
     public ResponseEntity<ListRestaurantResponse> list() {
         return ResponseEntity.ok(new ListRestaurantResponse(
                 listRestaurantUseCase.getListRestaurantUseCase().execute().stream().map(

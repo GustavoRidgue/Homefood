@@ -16,8 +16,8 @@ public class RestaurantTO {
     private String name;
     private String description;
     private BigDecimal shipping;
-    private Address address;
-    private LocalDate created;
-    private LocalDate lastUpdate;
-    private List<PaymentMethod> paymentMethods;
+//    private Address address;
+//    private LocalDate created;
+//    private LocalDate lastUpdate;
+//    private List<PaymentMethod> paymentMethods;
 }
