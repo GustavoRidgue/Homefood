@@ -20,4 +20,8 @@ public class RestaurantRepositoryFacadeImpl implements RestaurantRepositoryFacad
     public List<RestaurantEntity> findAll() {
         return repository.findAll();
     }
+
+    public RestaurantEntity findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }
