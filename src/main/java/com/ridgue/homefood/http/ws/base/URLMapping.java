@@ -16,5 +16,7 @@ public class URLMapping {
 
     public static final String ROOT_API_WS_RESTAURANT = "/restaurant";
     public static final String ROOT_API_WS_RESTAURANT_BY_ID = ROOT_API_WS_RESTAURANT + "/{id}";
-    public static final String ROOT_API_WS_SAVE_RESTAURANT = ROOT_API_WS_RESTAURANT + "/save";
+    public static final String ROOT_API_WS_RESTAURANT_SAVE = ROOT_API_WS_RESTAURANT + "/save";
+    public static final String ROOT_API_WS_RESTAURANT_UPDATE = ROOT_API_WS_RESTAURANT + "/update/{id}";
+    public static final String ROOT_API_WS_RESTAURANT_DELETE = ROOT_API_WS_RESTAURANT + "/delete/{id}";
 }
