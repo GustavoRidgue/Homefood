@@ -1,20 +1,16 @@
 package com.ridgue.homefood.http.ws;
 
-import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
-import com.ridgue.homefood.http.domain.request.ClientRequest;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.ListRestaurantResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.RestaurantResponse;
 import com.ridgue.homefood.http.ws.base.URLMapping;
-import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
-import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,7 +89,7 @@ public class RestaurantWS {
         try {
             RestaurantEntity updatedRestaurant = restaurantUseCaseFactory.getUpdateClientUseCase().execute(id, request);
             return ResponseEntity.ok(updatedRestaurant);
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
         } catch (InvalidFieldException e) {
             System.out.println("handle field null");

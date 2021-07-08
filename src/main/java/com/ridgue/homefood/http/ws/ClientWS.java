@@ -2,7 +2,7 @@ package com.ridgue.homefood.http.ws;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientTokenException;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.factory.client.ClientBuilderFactory;
@@ -52,7 +52,7 @@ public class ClientWS {
     public ResponseEntity<ClientResponse> listById(@PathVariable(name = "id") Long id) {
         try {
             return ResponseEntity.ok(new ClientResponse(clientBuilderFactory.getClientBuilder().build(clientUseCaseFactory.getFindClientByIdUseCase().execute(id))));
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -86,7 +86,7 @@ public class ClientWS {
         try {
             ClientEntity updatedClient = clientUseCaseFactory.getUpdateClientUseCase().execute(id, clientRequest);
             return ResponseEntity.ok(updatedClient);
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
         } catch (InvalidFieldException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
@@ -123,7 +123,7 @@ public class ClientWS {
             clientUseCaseFactory.getDeleteClientUseCase().execute(execute.getId());
 //            return new ResponseEntity<>(new DefaultResponse(Collections.singletonList("Client successfully deleted")), HttpStatus.OK);
             return new ResponseEntity<>(new DefaultResponse(), HttpStatus.NO_CONTENT);
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
         }
     }
@@ -142,7 +142,7 @@ public class ClientWS {
             return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (ClientAlreadyActivatedException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
@@ -157,7 +157,7 @@ public class ClientWS {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         } catch (InvalidClientTokenException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
-        } catch (ClientNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }

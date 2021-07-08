@@ -1,7 +1,7 @@
 package com.ridgue.homefood.usecase.client;
 
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.PropertyValueException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,7 +16,7 @@ public class DeleteClientUseCase {
         try {
             clientRepositoryFacade.deleteById(id);
         } catch (EmptyResultDataAccessException | PropertyValueException e) {
-            throw new ClientNotFoundException();
+            throw new ResourceNotFoundException();
         }
     }
 }

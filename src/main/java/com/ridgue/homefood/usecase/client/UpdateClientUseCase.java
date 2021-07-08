@@ -2,7 +2,7 @@ package com.ridgue.homefood.usecase.client;
 
 import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class UpdateClientUseCase {
         try {
             return clientRepositoryFacade.updateById(id, clientRequest);
         } catch (NullPointerException | EntityNotFoundException e) {
-            throw new ClientNotFoundException();
+            throw new ResourceNotFoundException();
         } catch (PropertyValueException e) {
             throw new InvalidFieldException();
         }

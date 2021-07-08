@@ -4,7 +4,7 @@ import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.repository.ClientRepository;
 import com.ridgue.homefood.database.repository.facade.ClientRepositoryFacade;
 import com.ridgue.homefood.exceptions.ClientAlreadyActivatedException;
-import com.ridgue.homefood.exceptions.ClientNotFoundException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidClientTokenException;
 import com.ridgue.homefood.http.domain.request.ClientRequest;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
     }
 
     public ClientEntity updateById(Long id, ClientRequest clientRequest) {
-        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+        if (!clientRepository.findById(id).isPresent()) throw new ResourceNotFoundException();
 
         ClientEntity clientEntity = clientRepository.findById(id).get();
         clientEntity.setName(clientRequest.getName());
@@ -48,7 +48,7 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
     }
 
     public ClientEntity updateTokenById(Long id, String token) {
-        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+        if (!clientRepository.findById(id).isPresent()) throw new ResourceNotFoundException();
 
         ClientEntity clientEntity = clientRepository.findById(id).get();
 
@@ -60,7 +60,7 @@ public class ClientRepositoryFacadeImpl implements ClientRepositoryFacade {
     }
 
     public ClientEntity activate(Long id, String token) {
-        if (!clientRepository.findById(id).isPresent()) throw new ClientNotFoundException();
+        if (!clientRepository.findById(id).isPresent()) throw new ResourceNotFoundException();
 
         ClientEntity clientById = clientRepository.findById(id).get();
 
