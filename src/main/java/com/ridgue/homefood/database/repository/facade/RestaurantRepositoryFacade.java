@@ -10,4 +10,5 @@ public interface RestaurantRepositoryFacade {
     RestaurantEntity findById(Long id);
     long create(RestaurantEntity restaurantEntity);
     RestaurantEntity updateById(Long id, RestaurantRequest request) throws Exception;
+    void deleteById(Long id);
 }

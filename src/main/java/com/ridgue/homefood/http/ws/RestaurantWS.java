@@ -1,5 +1,6 @@
 package com.ridgue.homefood.http.ws;
 
+import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
@@ -102,4 +103,14 @@ public class RestaurantWS {
      * ------- DELETE METHODS
      * -----------------------------
      */
+    @DeleteMapping(path = ROOT_API_WS_RESTAURANT_DELETE)
+//    @Transactional
+    public ResponseEntity<?> deleteById(@PathVariable(name = "id") Long id) {
+        try {
+            restaurantUseCaseFactory.getDeleteRestaurantUseCase().execute(id);
+            return new ResponseEntity<>(new DefaultResponse(), HttpStatus.NO_CONTENT);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.NOT_FOUND);
+        }
+    }
 }

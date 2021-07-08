@@ -42,4 +42,8 @@ public class RestaurantRepositoryFacadeImpl implements RestaurantRepositoryFacad
 
         return restaurant;
     }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }
