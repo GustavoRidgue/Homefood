@@ -4,10 +4,13 @@ import com.ridgue.homefood.database.entity.ProductEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.exceptions.ResourceNotFoundException;
+import com.ridgue.homefood.http.domain.factory.product.ProductBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
+import com.ridgue.homefood.http.domain.response.order.ListOrderResponse;
+import com.ridgue.homefood.http.domain.response.product.ListProductResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.ListRestaurantResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.RestaurantResponse;
 import com.ridgue.homefood.http.ws.base.URLMapping;
@@ -31,6 +34,7 @@ import static com.ridgue.homefood.http.ws.base.URLMapping.*;
 @RequestMapping(value = URLMapping.ROOT_API_PATH)
 public class ProductWS {
     private final ListProductUseCase listProductUseCase;
+    private final ProductBuilderFactory productBuilderFactory;
 
     /**
      * -----------------------------
@@ -38,7 +42,7 @@ public class ProductWS {
      * -----------------------------
      */
     @GetMapping(path = ROOT_API_WS_PRODUCT)
-    public List<ProductEntity> list() {
-        return listProductUseCase.execute();
+    public ResponseEntity<ListProductResponse> list() {
+        return ResponseEntity.ok(new ListProductResponse(listProductUseCase.execute().stream().map(productBuilderFactory.getProductBuilder()::build).collect(Collectors.toList())));
     }
 }

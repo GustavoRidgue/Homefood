@@ -1,38 +1,46 @@
 package com.ridgue.homefood.http.domain.builder;
 
+import com.ridgue.homefood.database.entity.OrderEntity;
+import com.ridgue.homefood.database.entity.OrderStatus;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
+import com.ridgue.homefood.domain.OrderTO;
 import com.ridgue.homefood.domain.RestaurantTO;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderBuilder {
-    public RestaurantTO build(RestaurantEntity restaurantEntity) {
-        if (restaurantEntity == null) return null;
+    public OrderTO build(OrderEntity order) {
+        if (order == null) return null;
 
-        RestaurantTO to = new RestaurantTO();
-        to.setId(restaurantEntity.getId());
-        to.setName(restaurantEntity.getName());
-        to.setKitchen(restaurantEntity.getKitchen());
-        to.setShipping(restaurantEntity.getShipping());
-//        to.setPaymentMethods(restaurantEntity.getPaymentMethods());
-//        to.setAddress(restaurantEntity.getAddress());
-//        to.setCreated(restaurantEntity.getCreated());
-//        to.setLastUpdate(restaurantEntity.getLastUpdate());
+        OrderTO to = new OrderTO();
+        to.setId(order.getId());
+//        to.setProducts(order.getProducts());
+        to.setTotalPrice(order.getTotalPrice());
+        to.setShipping(order.getShipping());
+        to.setQuantity(order.getQuantity());
+        to.setPaymentMethod(order.getPaymentMethod().getName());
+        to.setUser(order.getUser().getName());
+        to.setStatus(OrderStatus.CREATED);
+        to.setCreationDate(order.getCreationDate());
+        to.setConfirmationDate(order.getConfirmationDate());
+        to.setDeliveryDate(order.getDeliveryDate());
+        to.setCancellationDate(order.getCancellationDate());
+        to.setDeliveryAddress(
+                order.getDeliveryAddress().getStreet() +
+                ", number " + order.getDeliveryAddress().getNumber() +
+                " - " + order.getDeliveryAddress().getComplement() +
+                ", " + order.getDeliveryAddress().getCity().getName());
 
         return to;
     }
 
-    public RestaurantEntity build(RestaurantRequest restaurantRequest) {
-        if (restaurantRequest == null) return null;
-
-        RestaurantEntity restaurant = new RestaurantEntity();
-        restaurant.setName(restaurantRequest.getName());
-        restaurant.setKitchen(restaurantRequest.getKitchen());
-        restaurant.setShipping(restaurantRequest.getShipping());
-        restaurant.setPaymentMethods(restaurantRequest.getPaymentMethods());
-        restaurant.setAddress(restaurantRequest.getAddress());
-
-        return restaurant;
-    }
+//    public RestaurantEntity build(RestaurantRequest restaurantRequest) {
+//        if (restaurantRequest == null) return null;
+//
+//        RestaurantEntity restaurant = new RestaurantEntity();
+//        restaurant.setName(restaurantRequest.getName());
+//
+//        return restaurant;
+//    }
 }

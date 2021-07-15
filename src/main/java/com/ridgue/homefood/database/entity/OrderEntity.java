@@ -35,7 +35,7 @@ public class OrderEntity {
     private BigDecimal shipping;
 
     @Column(nullable = false)
-    private String quantity;
+    private Integer quantity;
 
     @Column(nullable = false)
     private BigDecimal totalPrice;

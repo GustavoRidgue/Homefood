@@ -1,24 +1,24 @@
 package com.ridgue.homefood.http.domain.builder;
 
+import com.ridgue.homefood.database.entity.ProductEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
+import com.ridgue.homefood.domain.ProductTO;
 import com.ridgue.homefood.domain.RestaurantTO;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductBuilder {
-    public RestaurantTO build(RestaurantEntity restaurantEntity) {
-        if (restaurantEntity == null) return null;
+    public ProductTO build(ProductEntity product) {
+        if (product == null) return null;
 
-        RestaurantTO to = new RestaurantTO();
-        to.setId(restaurantEntity.getId());
-        to.setName(restaurantEntity.getName());
-        to.setKitchen(restaurantEntity.getKitchen());
-        to.setShipping(restaurantEntity.getShipping());
-//        to.setPaymentMethods(restaurantEntity.getPaymentMethods());
-//        to.setAddress(restaurantEntity.getAddress());
-//        to.setCreated(restaurantEntity.getCreated());
-//        to.setLastUpdate(restaurantEntity.getLastUpdate());
+        ProductTO to = new ProductTO();
+        to.setId(product.getId());
+        to.setName(product.getName());
+        to.setDescription(product.getDescription());
+        to.setPrice(product.getPrice());
+        to.setActive(product.getActive());
+        to.setRestaurant(product.getRestaurant().getName());
 
         return to;
     }

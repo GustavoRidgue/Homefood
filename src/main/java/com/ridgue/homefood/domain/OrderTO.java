@@ -9,18 +9,19 @@ import java.time.LocalDate;
 
 @Data
 public class OrderTO {
-    private RestaurantEntity restaurant;
+    private Long id;
+//    private RestaurantEntity restaurant;
+//    private BigDecimal price;
     private ProductEntity products;
-    private BigDecimal price;
-    private BigDecimal shipping;
     private Integer quantity;
+    private BigDecimal shipping;
     private BigDecimal totalPrice;
-    private PaymentMethod paymentMethod;
-    private Address deliveryAddress;
-    private ClientEntity user;
+    private String paymentMethod;
+    private String deliveryAddress; //
     private OrderStatus status;
     private LocalDate creationDate;
     private LocalDate confirmationDate;
     private LocalDate deliveryDate;
     private LocalDate cancellationDate;
+    private String user;
 }
