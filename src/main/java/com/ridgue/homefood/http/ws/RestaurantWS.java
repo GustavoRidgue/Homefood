@@ -1,9 +1,8 @@
 package com.ridgue.homefood.http.ws;
 
-import com.ridgue.homefood.database.entity.ClientEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
-import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
+import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
