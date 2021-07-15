@@ -1,6 +1,8 @@
 package com.ridgue.homefood.database.repository.impl;
 
+import com.ridgue.homefood.database.entity.OrderEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
+import com.ridgue.homefood.database.repository.OrderRepository;
 import com.ridgue.homefood.database.repository.RestaurantRepository;
 import com.ridgue.homefood.database.repository.facade.OrderRepositoryFacade;
 import com.ridgue.homefood.database.repository.facade.RestaurantRepositoryFacade;
@@ -17,10 +19,10 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class OrderRepositoryFacadeImpl implements OrderRepositoryFacade {
-    private final RestaurantRepository repository;
+    private final OrderRepository repository;
 
     @Transactional(readOnly = true)
-    public List<RestaurantEntity> findAll() {
+    public List<OrderEntity> findAll() {
         return repository.findAll();
     }
 }
