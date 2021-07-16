@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface OrderRepositoryFacade {
     List<OrderEntity> findAll();
+    OrderEntity findById(Long id);
 }

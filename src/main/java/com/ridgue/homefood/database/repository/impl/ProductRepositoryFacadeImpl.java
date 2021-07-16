@@ -25,4 +25,8 @@ public class ProductRepositoryFacadeImpl implements ProductRepositoryFacade {
     public List<ProductEntity> findAll() {
         return repository.findAll();
     }
+
+    public ProductEntity findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }

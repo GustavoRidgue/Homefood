@@ -25,4 +25,8 @@ public class OrderRepositoryFacadeImpl implements OrderRepositoryFacade {
     public List<OrderEntity> findAll() {
         return repository.findAll();
     }
+
+    public OrderEntity findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }

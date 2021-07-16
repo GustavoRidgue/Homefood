@@ -11,9 +11,11 @@ import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import com.ridgue.homefood.http.domain.response.order.ListOrderResponse;
 import com.ridgue.homefood.http.domain.response.product.ListProductResponse;
+import com.ridgue.homefood.http.domain.response.product.ProductResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.ListRestaurantResponse;
 import com.ridgue.homefood.http.domain.response.restaurant.RestaurantResponse;
 import com.ridgue.homefood.http.ws.base.URLMapping;
+import com.ridgue.homefood.usecase.product.FindProductByIdUseCase;
 import com.ridgue.homefood.usecase.product.ListProductUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,7 @@ import static com.ridgue.homefood.http.ws.base.URLMapping.*;
 @RequestMapping(value = URLMapping.ROOT_API_PATH)
 public class ProductWS {
     private final ListProductUseCase listProductUseCase;
+    private final FindProductByIdUseCase findProductByIdUseCase;
     private final ProductBuilderFactory productBuilderFactory;
 
     /**
@@ -44,5 +47,14 @@ public class ProductWS {
     @GetMapping(path = ROOT_API_WS_PRODUCT)
     public ResponseEntity<ListProductResponse> list() {
         return ResponseEntity.ok(new ListProductResponse(listProductUseCase.execute().stream().map(productBuilderFactory.getProductBuilder()::build).collect(Collectors.toList())));
+    }
+
+    @GetMapping(path = ROOT_API_WS_PRODUCT_BY_ID)
+    public ResponseEntity<ProductResponse> listById(@PathVariable(name = "id") Long id) {
+        try {
+            return ResponseEntity.ok(new ProductResponse(productBuilderFactory.getProductBuilder().build(findProductByIdUseCase.execute(id))));
+        } catch (NullPointerException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
