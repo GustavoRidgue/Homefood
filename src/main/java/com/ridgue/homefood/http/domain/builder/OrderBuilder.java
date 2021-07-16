@@ -2,11 +2,17 @@ package com.ridgue.homefood.http.domain.builder;
 
 import com.ridgue.homefood.database.entity.OrderEntity;
 import com.ridgue.homefood.database.entity.OrderStatus;
+import com.ridgue.homefood.database.entity.ProductEntity;
 import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.domain.OrderTO;
 import com.ridgue.homefood.domain.RestaurantTO;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderBuilder {
@@ -14,8 +20,16 @@ public class OrderBuilder {
         if (order == null) return null;
 
         OrderTO to = new OrderTO();
+
+        List<String> names = new ArrayList<>();
+
+        for (ProductEntity prod : order.getProducts()) {
+            names.add(prod.getName());
+        }
+
+        to.setProducts(names);
+
         to.setId(order.getId());
-//        to.setProducts(order.getProducts());
         to.setTotalPrice(order.getTotalPrice());
         to.setShipping(order.getShipping());
         to.setQuantity(order.getQuantity());

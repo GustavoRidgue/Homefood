@@ -6,13 +6,14 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class OrderTO {
     private Long id;
 //    private RestaurantEntity restaurant;
 //    private BigDecimal price;
-    private ProductEntity products;
+    private List<String> products;
     private Integer quantity;
     private BigDecimal shipping;
     private BigDecimal totalPrice;
