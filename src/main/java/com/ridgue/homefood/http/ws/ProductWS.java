@@ -5,8 +5,10 @@ import com.ridgue.homefood.database.entity.RestaurantEntity;
 import com.ridgue.homefood.exceptions.InvalidFieldException;
 import com.ridgue.homefood.exceptions.ResourceNotFoundException;
 import com.ridgue.homefood.http.domain.factory.product.ProductBuilderFactory;
+import com.ridgue.homefood.http.domain.factory.product.ProductUseCaseFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantBuilderFactory;
 import com.ridgue.homefood.http.domain.factory.restaurant.RestaurantUseCaseFactory;
+import com.ridgue.homefood.http.domain.request.ProductRequest;
 import com.ridgue.homefood.http.domain.request.RestaurantRequest;
 import com.ridgue.homefood.http.domain.response.DefaultResponse;
 import com.ridgue.homefood.http.domain.response.order.ListOrderResponse;
@@ -35,8 +37,7 @@ import static com.ridgue.homefood.http.ws.base.URLMapping.*;
 @AllArgsConstructor
 @RequestMapping(value = URLMapping.ROOT_API_PATH)
 public class ProductWS {
-    private final ListProductUseCase listProductUseCase;
-    private final FindProductByIdUseCase findProductByIdUseCase;
+    private final ProductUseCaseFactory productUseCaseFactory;
     private final ProductBuilderFactory productBuilderFactory;
 
     /**
@@ -46,15 +47,33 @@ public class ProductWS {
      */
     @GetMapping(path = ROOT_API_WS_PRODUCT)
     public ResponseEntity<ListProductResponse> list() {
-        return ResponseEntity.ok(new ListProductResponse(listProductUseCase.execute().stream().map(productBuilderFactory.getProductBuilder()::build).collect(Collectors.toList())));
+        return ResponseEntity.ok(new ListProductResponse(productUseCaseFactory.getListProductUseCase().execute().stream().map(productBuilderFactory.getProductBuilder()::build).collect(Collectors.toList())));
     }
 
     @GetMapping(path = ROOT_API_WS_PRODUCT_BY_ID)
     public ResponseEntity<ProductResponse> listById(@PathVariable(name = "id") Long id) {
         try {
-            return ResponseEntity.ok(new ProductResponse(productBuilderFactory.getProductBuilder().build(findProductByIdUseCase.execute(id))));
+            return ResponseEntity.ok(new ProductResponse(productBuilderFactory.getProductBuilder().build(productUseCaseFactory.getFindProductByIdUseCase().execute(id))));
         } catch (NullPointerException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * -----------------------------
+     * ------- POST METHODS
+     * -----------------------------
+     */
+    @PostMapping(path = ROOT_API_WS_PRODUCT_SAVE)
+//    @Transactional
+    public ResponseEntity<?> create(@RequestBody ProductRequest request, UriComponentsBuilder uriComponentsBuilder) {
+        try {
+            ProductEntity product = productUseCaseFactory.getCreateProductUseCase().execute(request);
+            URI uri = uriComponentsBuilder.path(ROOT_API_WS_PRODUCT_BY_ID + product.getId()).buildAndExpand(product.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(product);
+        } catch (InvalidFieldException e) {
+            return new ResponseEntity<>(new DefaultResponse("ERROR", Arrays.asList(e.getError(), e.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 }
