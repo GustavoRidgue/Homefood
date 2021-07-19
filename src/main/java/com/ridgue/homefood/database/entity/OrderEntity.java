@@ -22,11 +22,9 @@ public class OrderEntity {
     @JoinColumn(nullable = false)
     private RestaurantEntity restaurant;
 
-    @ManyToMany
-    @JoinTable(name = "order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<ProductEntity> products = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private ProductEntity product;
 
     @Column(nullable = false)
     private BigDecimal price;

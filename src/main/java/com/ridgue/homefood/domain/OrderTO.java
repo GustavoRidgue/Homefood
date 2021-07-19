@@ -13,7 +13,7 @@ public class OrderTO {
     private Long id;
 //    private RestaurantEntity restaurant;
 //    private BigDecimal price;
-    private List<String> products;
+    private String product;
     private Integer quantity;
     private BigDecimal shipping;
     private BigDecimal totalPrice;

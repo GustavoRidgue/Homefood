@@ -20,14 +20,14 @@ public class OrderBuilder {
         if (order == null) return null;
 
         OrderTO to = new OrderTO();
+//
+//        List<String> names = new ArrayList<>();
+//
+//        for (ProductEntity prod : order.getProducts()) {
+//            names.add(prod.getName());E
+//        }
 
-        List<String> names = new ArrayList<>();
-
-        for (ProductEntity prod : order.getProducts()) {
-            names.add(prod.getName());
-        }
-
-        to.setProducts(names);
+        to.setProduct(order.getProduct().getName());
 
         to.setId(order.getId());
         to.setTotalPrice(order.getTotalPrice());
