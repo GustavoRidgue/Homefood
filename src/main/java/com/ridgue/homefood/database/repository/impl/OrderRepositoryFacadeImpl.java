@@ -29,4 +29,8 @@ public class OrderRepositoryFacadeImpl implements OrderRepositoryFacade {
     public OrderEntity findById(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    public void create(OrderEntity order) {
+        repository.save(order);
+    }
 }

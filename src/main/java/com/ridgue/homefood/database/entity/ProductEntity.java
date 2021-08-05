@@ -19,6 +19,9 @@ public class ProductEntity {
     @Column(nullable = false)
     private String description;
 
+//    @Column(nullable = false)
+//    private BigDecimal shipping;
+
     @Column(nullable = false)
     private BigDecimal price;
 

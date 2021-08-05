@@ -1,5 +1,6 @@
 package com.ridgue.homefood.database.repository.facade;
 
+import com.ridgue.homefood.database.entity.OrderEntity;
 import com.ridgue.homefood.database.entity.ProductEntity;
 
 import java.util.List;

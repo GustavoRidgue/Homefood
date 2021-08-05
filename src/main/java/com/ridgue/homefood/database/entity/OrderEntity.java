@@ -19,7 +19,7 @@ public class OrderEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private RestaurantEntity restaurant;
 
     @ManyToOne
