@@ -58,7 +58,7 @@ public class CreateOrderUseCase {
 //            order.setRestaurant(request.getProduct().getRestaurant());
 
             //
-            order.setPrice(request.getProduct().getPrice());
+            order.setPrice(request.getProduct().getPrice()); 
 
             //
             order.setShipping(request.getProduct().getRestaurant().getShipping());
